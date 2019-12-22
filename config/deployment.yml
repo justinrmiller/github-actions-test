@@ -4,6 +4,9 @@ metadata:
   name: static-example
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: static-example
   strategy:
     rollingUpdate:
       maxSurge: 1
