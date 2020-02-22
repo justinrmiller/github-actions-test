@@ -1,6 +1,25 @@
-FROM nginx:alpine
+FROM python:3-alpine
+MAINTAINER Justin Miller <justinrmiller@gmail.com>
 
-COPY config/nginx.conf /etc/nginx/conf.d/default.conf
+ARG BUILD_DATE
+ARG VCS_REF
 
-WORKDIR /usr/share/nginx/html
-COPY site .
+ENV VCS_URL "https://github.com/justinrmiller/docker-python3-flask"
+ENV APP_DEBUG False
+
+# Set labels (see https://microbadger.com/labels)
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url=$VCS_URL
+
+RUN apk add --no-cache bash curl
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir flask gunicorn
+
+EXPOSE 5000
+
+COPY opt/ /opt/
+
+ENTRYPOINT ["/opt/run.sh"]

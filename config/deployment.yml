@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: static-example
+  name: github-actions-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: static-example
+      app: github-actions-test
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,10 +15,10 @@ spec:
   template:
     metadata:
       labels:
-        app: static-example
+        app: github-actions-test
     spec:
       containers:
-      - name: static-example
+      - name: github-actions-test
         image: <IMAGE>
         ports:
         - containerPort: 5000
@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: static-example-service
+  name: github-actions-test-service
 spec:
   type: LoadBalancer
   ports:
@@ -40,4 +40,4 @@ spec:
       port: 80
       targetPort: 5000
   selector:
-    app: static-example
+    app: github-actions-test
