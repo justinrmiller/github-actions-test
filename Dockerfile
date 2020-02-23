@@ -1,5 +1,5 @@
 # python runtime
-FROM python:3.6.5-alpine
+FROM python:3.8.1-alpine
 
 # maintainer
 MAINTAINER Justin Miller <justinrmiller@gmail.com>
@@ -11,7 +11,7 @@ WORKDIR /app
 ADD . /app
 
 # install requirements
-RUN pip3 install -r src/requirements.txt
+RUN pip3 install -r requirements.txt
 
 # make port 8000 available to the world outside
 EXPOSE 8000

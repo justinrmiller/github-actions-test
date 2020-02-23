@@ -2,4 +2,4 @@ from flask import Flask
 
 app = Flask(__name__)
 
-from .server import *
+from src import routes  # noqa: E402,F401
