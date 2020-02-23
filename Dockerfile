@@ -1,25 +1,19 @@
-FROM python:3-alpine
+# python runtime
+FROM python:3.6.5-alpine
+
+# maintainer
 MAINTAINER Justin Miller <justinrmiller@gmail.com>
 
-ARG BUILD_DATE
-ARG VCS_REF
-
-ENV VCS_URL "https://github.com/justinrmiller/docker-python3-flask"
-ENV APP_DEBUG False
-
-# Set labels (see https://microbadger.com/labels)
-LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url=$VCS_URL
-
-RUN apk add --no-cache bash curl
-
+# working directory
 WORKDIR /app
 
-RUN pip install --no-cache-dir flask gunicorn
+# copy current directory into the container
+ADD . /app
 
-EXPOSE 5000
+# install requirements
+RUN pip3 install -r src/requirements.txt
 
-COPY opt/ /opt/
+# make port 8000 available to the world outside
+EXPOSE 8000
 
-ENTRYPOINT ["/opt/run.sh"]
+CMD ["gunicorn", "--config", "./config/gunicorn_config.py", "src:app"]
