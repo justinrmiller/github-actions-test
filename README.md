@@ -10,4 +10,3 @@ The [example workflow](.github/workflows/workflow.yaml) will trigger on every pu
 * Tag and push the image to Docker Hub
 * Retrieve the `kubeconfig` file for a DigitalOcean Kubernetes cluster
 * Create a deployment using [config/deployment.yml](config/deployment.yml)
-
