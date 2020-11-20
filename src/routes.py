@@ -5,3 +5,4 @@ from flask import jsonify
 @app.route('/')
 def index():
     return jsonify(message="hello, github-actions-test!")
+
